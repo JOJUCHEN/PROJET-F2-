@@ -1,3 +1,6 @@
+//
+// Created by CHEN on 20/10/2024.
+//
 #ifndef UNTITLED1_NODEQUEUE_H
 #define UNTITLED1_NODEQUEUE_H
 
@@ -9,8 +12,8 @@
 typedef struct s_queue_tab
 {
     p_node values[MAX]; //tableau de pointeurs vers les noeuds
-    int first;          //indice du premier élément de la file
-    int last;           //indice du dernier élément de la file
+    int first;
+    int last;
 } t_queue_tab;
 
 /**

@@ -1,10 +1,12 @@
-
+//
+// Created by CHEN on 20/10/2024.
+//
 #include "nodequeue.h"
 
-t_queue_tab createEmptyQueue() //Initialise une file vide (FIFO) et return une file vide de type t_queue_tab
+t_queue_tab createEmptyQueue() //Initialise une file vide
 {
     t_queue_tab q;
-    q.first = q.last = 0; //Initialise la file à vide, first & last valent 0
+    q.first = q.last = 0;
     return q;
 }
 
