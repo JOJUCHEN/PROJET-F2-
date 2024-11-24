@@ -2,27 +2,24 @@
 
 Lien dépôt GIT : https://github.com/JOJUCHEN/PROJET-F2-
 
-Fonctionnalités:
+- Projet Rover Run
+Ce projet contient des implémentations diverses de structures de données (piles, files, arbres) et de gestion de déplacements sur une carte simulant le déplacement d'un robot dans un environnement déterminé.
 
-TREE :
+- **Fonctionnalités** :
+    - main : Le point d'entrée du projet où sont initialisées les cartes et où le programme principal est exécuté.
+    - queue : Implémentation des méthodes pour gérer les files.
+    - stack : Implémentation des méthodes pour gérer les piles.
+    - tree : Implémentation des méthodes pour gérer les arbres, notamment la création et la gestion des noeuds.
+    - map : Implémentation des méthodes pour lire et créer des cartes, calculer les coûts, et afficher les cartes.
+    - loc : Implémentation des méthodes pour initialiser et mettre à jour la localisation du robot.
+    - moves : Implémentation des mouvements du robot (avant, arrière, rotations).
+    - nodequeue : Implémentation des méthodes pour gérer les files de noeuds, utilisées pour parcourir les arbres.
+    - path : Implémentation des méthodes pour calculer le meilleur chemin pour minimiser le coût de déplacement
 
-- Définition de la structure de l'arbre et des noeuds.
-- Création d'un noeud.
-- Construction d'un arbre n-aires.
-- Recherche de la valeur minimale de tout l'arbre.
-
-NODE\_QUEUE :
-
-- Création d'une file vide.
-- Ajout d'un noeud dans la file
-- Retirer un noeud de la file.
-
-PATH :
-
-- Recherche de valeur minimale
-- Parcours en largeur pour trouver tous les noeuds ayant la valeur minimale.
-- Calcul du coût total du chemin pour arriver à chaque noeud minimal.
-- Choix du noeud/chemin optimal.
-- Définir les mouvements optimal.
+Installation et Exécution :
+    - Ouvrir le projet dans CLion.
+    - Placer votre fichier de carte dans le dossier `maps/`.
+    - Modifier le chemin de fichier dans le fichier `main.c` : t_map map = createMapFromFile("..\\maps\\example1.map");
+    
 
 
