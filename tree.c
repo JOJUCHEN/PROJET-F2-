@@ -3,6 +3,7 @@
 //
 
 #include "tree.h"
+#include "loc.h"
 
 
 t_move* rmMove(t_move* moves, int index, int size){
@@ -37,15 +38,13 @@ p_node createNode(int nb_sons, int depth, t_move mouvement, t_localisation loc, 
 p_node createAllNode(int nb_poss, int depth, t_move mouvement, t_move* possibilities, t_localisation robot, t_map map, p_node sup_node){   //La fonction ne prends pas en compte si on avance de plus de 10 mètres ou si on a déjà marché sur une crevasse
     if (depth > NB_choices) return NULL;   //Si la profondeur est supérieur au nombre de choix, on retourne NULL
 
-    else if (depth == NB_choices || map.costs[robot.pos.y][robot.pos.x] >= 10000) nb_poss = 0;   //Si on est à la profondeur la plus basse, donc le dernier choix, ou que la case après le mouvement est une crevasse, le noeud n'aura pas d'enfant
-
     p_node node = createNode(nb_poss, depth, mouvement, robot, map, sup_node);   //Initialise le nouveau noeud
 
     for (int i = 0; i < nb_poss; i++) {
         t_localisation new_loc = robot;
         updateLocalisation(&new_loc, possibilities[i]); //On stocke la nouvelle position du robot selon le mouvement associé dans new_loc
 
-        if (isValidLocalisation(new_loc.pos, map.x_max, map.y_max)) { //Si la position après le mouvement est valide, on crée les enfants
+        if (isValidLocalisation(new_loc.pos, map.x_max, map.y_max)&&(depth != NB_choices || map.costs[robot.pos.y][robot.pos.x] < 10000)) { //Si la position après le mouvement est valide, on crée les enfants
             t_move* new_possibilities = rmMove(possibilities, nb_poss, i);                  //On crée le nouveau tableau de possibilités en retirant la case du noeud qu'on va créer car on l'aura déjà utilisé et on a déjà stocker la position après le mouvement pour connaître le coût
             node->sons[i] = createAllNode(nb_poss - 1, depth + 1, possibilities[i], new_possibilities, new_loc, map,
                                           node); //On utilise la récursivité pour obtenir l'enfant avec les nouveaux paramètres
