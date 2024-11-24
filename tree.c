@@ -14,7 +14,7 @@ t_move* rmMove(t_move* moves, int index, int size){
         new_moves[i] = moves[j];
         j++;
     }
-    return new_moves;//Retourne le nouveau tableau
+    return new_moves;
 }
 
 p_node createNode(int nb_sons, int depth, t_move mouvement, t_localisation loc, t_map map, p_node node){
@@ -26,11 +26,11 @@ p_node createNode(int nb_sons, int depth, t_move mouvement, t_localisation loc, 
     new_node->mouvement = mouvement;                              // Attribue le mouvement qui a conduit à ce noeud
     new_node->sup = node;
     new_node->soil_type = map.soils[loc.pos.y][loc.pos.x];      // Attribue le type de sol de la grille au nouveau noeud
-    new_node->nbSons = nb_sons;                                 // Attribue le nombre d'enfants au nouveau noeud
+    new_node->nbSons = nb_sons;                                 // Attribue le nb d'enfants au nouveau noeud
     new_node->sons = (t_node **)malloc(nb_sons*sizeof(t_node *));
     for (int i = 0; i < nb_sons; i++)   new_node->sons[i] = NULL; //Initialise tous les fils à NULL
 
-    return new_node;//Retourne le noeud crée
+    return new_node;
 }
 
 
@@ -58,18 +58,16 @@ p_node createAllNode(int nb_poss, int depth, t_move mouvement, t_move* possibili
     return node;
 }
 
-//Fonction pour la création d'un arbre basé sur les possibilités de mouvements
 t_tree createTree(int nb_poss, int depth, t_move mouvement, t_move* possibilities, t_localisation robot, t_map map){
     t_tree t;
     t.root = createAllNode(nb_poss, depth, mouvement, possibilities, robot, map, NULL);//Appel de la fonction de création des noeuds recursif
     return t;
 }
-//Cherche la val min dans l'abre
+
 int searchMin(t_tree tree){
     return searchMinNode(tree.root);//Recherche à partir du root
 }
 
-//Cherche la val min dans un sous-arbre
 int searchMinNode(p_node node){
     int min = node->value;//Initialise la val min avec celle du noeud
 
@@ -83,7 +81,7 @@ int searchMinNode(p_node node){
             }
         }
     }
-    return min;//Return la val min
+    return min;
 }
 
 int nbNodeMin(t_node *node, int min){  //Fonction pour chercher le nombre de valeur minimum
@@ -97,5 +95,5 @@ int nbNodeMin(t_node *node, int min){  //Fonction pour chercher le nombre de val
         }
     }
     if (node->value == min) nb += 1; //Incrémentation si le noeud possède la val min
-    return nb; //Retourne le total noeud ayant une val min
+    return nb;
 }

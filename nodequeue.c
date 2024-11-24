@@ -3,7 +3,7 @@
 //
 #include "nodequeue.h"
 
-t_queue_tab createEmptyQueue() //Initialise une file vide
+t_queue_tab createEmptyQueue()
 {
     t_queue_tab q;
     q.first = q.last = 0;
@@ -11,7 +11,7 @@ t_queue_tab createEmptyQueue() //Initialise une file vide
 }
 
 
-void enqueueNode(t_queue_tab *queue, p_node node) // Ajoute un nouveau noeud à la fin de la file d'attente
+void enqueueNode(t_queue_tab *queue, p_node node)
 {
     int pos;
     pos = queue->last % MAX;   //Calcule l'index du tableau pour ajouter le nouveau noeud
