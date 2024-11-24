@@ -1,6 +1,6 @@
 ﻿PROJET C, RUOYU CHEN, SAFIANE RAS EL QDIM, CLEMENT ROUVRAIS
 
-Lien dépôt GIT : https://github.com/krakix/Projet-Rover-Run
+Lien dépôt GIT : https://github.com/JOJUCHEN/PROJET-F2-
 
 Fonctionnalités:
 
