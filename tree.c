@@ -13,7 +13,7 @@ t_move* remove_move(t_move* moves, int len, int idx){
     return new_moves;//Retourne le nouveau tableau
 }
 
-p_node createNode(int nb_sons, int depth, t_move mouvement, t_localisation loc, t_map map, p_node node){
+p_node createNode(int nb_inf, int depth, t_move mouvement, t_localisation loc, t_map map, p_node node){
     p_node new_node;                                           //Initialise le nouvel arbre
     new_node = (t_node *)malloc(sizeof(t_node));
 
@@ -22,9 +22,9 @@ p_node createNode(int nb_sons, int depth, t_move mouvement, t_localisation loc, 
     new_node->mouvement = mouvement;                              // Attribue le mouvement qui a conduit à ce noeud
     new_node->sup = node;
     new_node->soil_type = map.soils[loc.pos.y][loc.pos.x];      // Attribue le type de sol de la grille au nouveau noeud
-    new_node->nbSons = nb_sons;                                 // Attribue le nombre d'enfants au nouveau noeud
-    new_node->sons = (t_node **)malloc(nb_sons*sizeof(t_node *));
-    for (int i = 0; i < nb_sons; i++)   new_node->sons[i] = NULL; //Initialise tous les fils à NULL
+    new_node->nbinf = nb_inf;                                 // Attribue le nombre d'enfants au nouveau noeud
+    new_node->inf = (t_node **)malloc(nb_inf*sizeof(t_node *));
+    for (int i = 0; i < nb_inf; i++)   new_node->inf[i] = NULL; //Initialise tous les fils à NULL
 
     return new_node;//Retourne le noeud crée
 }
@@ -43,11 +43,11 @@ p_node create_all_Node(int nb_poss, int depth, t_move mouvement, t_move* possibi
 
         if (isValidLocalisation(new_loc.pos, map.x_max, map.y_max)) { //Si la position après le mouvement est valide, on crée les enfants
             t_move* new_possibilities = remove_move(possibilities, nb_poss, i);                  //On crée le nouveau tableau de possibilités en retirant la case du noeud qu'on va créer car on l'aura déjà utilisé et on a déjà stocker la position après le mouvement pour connaître le coût
-            node->sons[i] = create_all_Node(nb_poss - 1, depth+1, possibilities[i], new_possibilities, new_loc, map, node); //On utilise la récursivité pour obtenir l'enfant avec les nouveaux paramètres
+            node->inf[i] = create_all_Node(nb_poss - 1, depth+1, possibilities[i], new_possibilities, new_loc, map, node);
             free(new_possibilities);   //On libère la mémoire de new_possibilities
         }
         else{
-            node->sons[i] = NULL;
+            node->inf[i] = NULL;
         }
     }
     return node;
@@ -68,12 +68,12 @@ int search_min(t_tree t){
 int search_min_node(p_node node){
     int min = node->value;//Initialise la val min avec celle du noeud
 
-    if (node->nbSons != 0){ //Tant que le noeud a des fils, on les parcourt
-        for (int i = 0; i < node->nbSons; i++) {
-            if (node->sons[i] != NULL){
-                int min_son = search_min_node(node->sons[i]);   //Appel récursif
-                if (min_son < min){ //On remplace min si une valeur plus basse est trouvée
-                    min = min_son;
+    if (node->nbinf != 0){
+        for (int i = 0; i < node->nbinf; i++) {
+            if (node->inf[i] != NULL){
+                int min_inf = search_min_node(node->inf[i]);   //Appel récursif
+                if (min_inf < min){ //On remplace min si une valeur plus basse est trouvée
+                    min = min_inf;
                 }
             }
         }
@@ -84,10 +84,10 @@ int search_min_node(p_node node){
 int nb_min(p_node node, int min){  //Fonction pour chercher le nombre de valeur minimum
     int nb = 0; //Initialise le compteur
 
-    if (node->nbSons != 0){ //Tant que le noeud a des fils, on les parcourt
-        for (int i = 0; i < node->nbSons; i++) {
-            if (node->sons[i] != NULL){
-                nb += nb_min(node->sons[i], min);   //Appel récursif
+    if (node->nbinf != 0){ //Tant que le noeud a des fils, on les parcourt
+        for (int i = 0; i < node->nbinf; i++) {
+            if (node->inf[i] != NULL){
+                nb += nb_min(node->inf[i], min);   //Appel récursif
             }
         }
     }

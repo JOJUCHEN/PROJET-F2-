@@ -20,8 +20,8 @@ typedef struct s_node
     t_move mouvement; // Le mouvement qui conduit à ce noeud
     t_soil soil_type; // Le type de sol associé à ce noeud
     struct s_node *sup; // Pointeur vers le noeud sup
-    struct s_node **sons; // Pointeur vers un tableau contenant les noeuds fils
-    int nbSons; // Le nombre d'éléments dans le tableau
+    struct s_node **inf; // Pointeur vers un tableau contenant les noeuds fils
+    int nbinf; // Le nombre d'éléments dans le tableau
 } t_node;
 
 typedef struct s_node t_node, *p_node;//Définition du noeud et du pointeur vers un noeud
@@ -35,7 +35,7 @@ typedef struct s_tree
 
 t_move* remove_move(t_move*, int, int);
 
-p_node createNode(int nb_sons, int depth, t_move mouvement, t_localisation loc, t_map map, p_node node);
+p_node createNode(int nb_inf, int depth, t_move mouvement, t_localisation loc, t_map map, p_node node);
 
 p_node create_all_Node(int nb_poss, int depth, t_move mouvement, t_move* possibilities, t_localisation robot, t_map map, p_node sup_node);
 

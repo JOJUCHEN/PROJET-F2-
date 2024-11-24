@@ -26,10 +26,10 @@ p_node* tab_of_min(p_node node, int* len){
             }
             return min_leaf;
         }
-        else if (cur->nbSons != 0){
-            for (int i = 0; i < cur->nbSons; i++) {
-                if (cur->sons[i] != NULL){
-                    enqueue_node(&q,cur->sons[i]);
+        else if (cur->nbinf != 0){
+            for (int i = 0; i < cur->nbinf; i++) {
+                if (cur->inf[i] != NULL){
+                    enqueue_node(&q,cur->inf[i]);
                 }
             }
         }
